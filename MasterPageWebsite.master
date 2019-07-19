@@ -1,0 +1,478 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPageWebsite.master.cs" Inherits="MasterPageWebsite" %>
+
+<%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
+<!DOCTYPE html>
+<html lang="en">
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="images/favicon.ico" type="image/ico" />
+    <title>Tsume Art | Portal</title>
+    <script src='https://unpkg.com/vue/dist/vue.min.js'></script>
+    <script src='https://unpkg.com/buefy/dist/buefy.min.js'></script>
+    <script src='https://unpkg.com/axios/dist/axios.min.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/lodash@4.17.4/lodash.min.js'></script>
+    <script src='https://unpkg.com/cleave.js/dist/cleave.min.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/sortablejs@1.6.1/Sortable.min.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/vee-validate@2.1.0-beta.9/dist/vee-validate.min.js'></script>
+    <link rel='stylesheet' href='https://unpkg.com/buefy/dist/buefy.min.css'>
+    <link rel='stylesheet' href='https://cdn.materialdesignicons.com/2.0.46/css/materialdesignicons.min.css'>
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.0.6/css/all.css'>
+
+    <link href="/website/node_modules/@coreui/icons/css/coreui-icons.min.css" rel="stylesheet">
+
+    <link href="/website/node_modules/flag-icon-css/css/flag-icon.min.css" rel="stylesheet">
+
+    <link href="/website/node_modules/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="/website/node_modules/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+
+    <link href="/website/css/style.css" rel="stylesheet">
+    
+
+
+    <link href="/website/vendors/pace-progress/css/pace.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.14.2/dist/bootstrap-table.min.css">
+
+    <!-- CoreUI and necessary plugins-->
+    <script src="/website/node_modules/jquery/dist/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.14.2/dist/bootstrap-table.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="/website/node_modules/pace-progress/pace.min.js"></script>
+    <script src="/website/node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js"></script>
+    <script src="/website/node_modules/@coreui/coreui/dist/js/coreui.min.js"></script>
+    <!-- Plugins and scripts required by this view-->
+    <script src="/website/node_modules/chart.js/dist/Chart.min.js"></script>
+    <script src="/website/node_modules/@coreui/coreui-plugin-chartjs-custom-tooltips/dist/js/custom-tooltips.min.js"></script>
+    <script src="js/ats.js?v=1.1"></script>
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
+    <form id="form1" runat="server">
+        <telerik:RadScriptManager ID="RadScriptManager1" runat="server"></telerik:RadScriptManager>
+        <header class="app-header navbar">
+            <button class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="sidebar-show">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand" href="#">
+                <img class="navbar-brand-full" src="images/tsume.svg" width="89" height="25" alt="Tsume Art Logo">
+                <img class="navbar-brand-minimized" src="images/tsume.svg" width="30" height="30" alt="Tsume Art Logo">
+            </a>
+            <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button" data-toggle="sidebar-lg-show">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <ul class="nav navbar-nav d-md-down-none">
+                <li class="nav-item px-3">
+                    <a class="nav-link" href="#"><i class="flag-icon flag-icon-us h4" title="us"></i></a>
+                </li>
+                <li class="nav-item px-3">
+                    <a class="nav-link" href="#"><i class="flag-icon flag-icon-cn h4" title="cn"></i></a>
+                </li>
+                <li class="nav-item px-3">
+                    <a class="nav-link" href="#"><i class="flag-icon flag-icon-fr h4" title="fr"></i></a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav ml-auto">
+                <li class="nav-item d-md-down-none">
+                    <a class="nav-link" href="#">
+                        <i class="icon-bell"></i>
+                        <span class="badge badge-pill badge-danger">5</span>
+                    </a>
+                </li>
+                <li class="nav-item d-md-down-none">
+                    <a class="nav-link" href="#">
+                        <i class="icon-list"></i>
+                    </a>
+                </li>
+                <li class="nav-item d-md-down-none">
+                    <a class="nav-link" href="#">
+                        <i class="icon-location-pin"></i>
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                        <img class="img-avatar" src="images/user.png" alt="">
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <div class="dropdown-header text-center">
+                            <strong>Account</strong>
+                        </div>
+                        <a class="dropdown-item" href="#">
+                            <i class="fa fa-envelope-o"></i>Messages
+                    
+                            <span class="badge badge-success">0</span>
+                        </a>
+                        <a class="dropdown-item" href="#">
+                            <i class="fa fa-tasks"></i>Tasks
+                    
+                            <span class="badge badge-danger">0</span>
+                        </a>
+                        <div class="dropdown-header text-center">
+                            <strong>Settings</strong>
+                        </div>
+                        <a class="dropdown-item" href="website.aspx?page=profile">
+                            <i class="fa fa-user"></i>Profile</a>
+                        <a class="dropdown-item" href="#">
+                            <i class="fa fa-wrench"></i>Settings</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/">
+                            <i class="fa fa-user"></i>
+                            <asp:Label ID="lblmasteruser" ClientIDMode="static" runat="server" Text="User"></asp:Label></a>
+                        <a class="dropdown-item" href="/">
+                            <i class="fa fa-lock"></i>Logout</a>
+                    </div>
+                </li>
+            </ul>
+            <button class="navbar-toggler aside-menu-toggler d-md-down-none" type="button" data-toggle="aside-menu-lg-show">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <button class="navbar-toggler aside-menu-toggler d-lg-none" type="button" data-toggle="aside-menu-show">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </header>
+        <div class="app-body" ng-app="myApp">
+            <div class="sidebar">
+                <nav class="sidebar-nav">
+                    <ul class="nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="website.aspx?page=dashboard">
+                                <i class="nav-icon icon-speedometer"></i>Dashboard
+                       
+                                <span class="badge badge-primary">NEW</span>
+                            </a>
+                        </li>
+                        <li class="nav-title">Websites</li>
+                        <li class="nav-item nav-dropdown">
+                            <a class="nav-link nav-dropdown-toggle" href="#">
+                                <i class="nav-icon icon-calculator"></i>Sales</a>
+                            <ul class="nav-dropdown-items">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="website.aspx?page=paymentList">
+                                        <i class="nav-icon icon-puzzle"></i>Payment List</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="website.aspx?page=orderList">
+                                        <i class="nav-icon icon-puzzle"></i>Order List</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="website.aspx?page=preorderList">
+                                        <i class="nav-icon icon-puzzle"></i>Pre-Order List</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="website.aspx?page=waitingList">
+                                        <i class="nav-icon icon-puzzle"></i>Waiting List</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="website.aspx?page=wishList">
+                                        <i class="nav-icon icon-puzzle"></i>Wish List</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="website.aspx?page=contactList">
+                                        <i class="nav-icon icon-puzzle"></i>Contacts</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item nav-dropdown">
+                            <a class="nav-link nav-dropdown-toggle" href="#">
+                                <i class="nav-icon icon-note"></i>Support Ticket</a>
+                            <ul class="nav-dropdown-items">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="website.aspx?page=supportDashboard">
+                                        <i class="nav-icon icon-note"></i>Support Dashboard</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="website.aspx?page=inbox">
+                                        <i class="nav-icon icon-note"></i>Email Inbox
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="website.aspx?page=supportCategorylist">
+                                        <i class="nav-icon icon-note"></i>Category List
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="website.aspx?page=supportticketlist">
+                                        <i class="nav-icon icon-note"></i>Support Ticket List
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item nav-dropdown">
+                            <a class="nav-link nav-dropdown-toggle" href="#">
+                                <i class="nav-icon icon-chart"></i>Stock</a>
+                            <ul class="nav-dropdown-items">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="website.aspx?page=dashboard_inventory">
+                                        <i class="nav-icon icon-puzzle"></i>Inventory</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="website.aspx?page=list_stocks">
+                                        <i class="nav-icon icon-puzzle"></i>Stock In Hand</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="website.aspx?page=list_parts">
+                                        <i class="nav-icon icon-puzzle"></i>Parts</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="website.aspx?page=new_stockadjustment">
+                                        <i class="nav-icon icon-puzzle"></i>Stock Adjustment</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="website.aspx?page=list_locations">
+                                        <i class="nav-icon icon-puzzle"></i>Warehouse Locations</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="website.aspx?page=stocktransfer">
+                                        <i class="nav-icon icon-puzzle"></i>Stock Transfer</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="website.aspx?page=list_supplier">
+                                        <i class="nav-icon icon-puzzle"></i>Supplier List</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-divider"></li>
+                        <li class="nav-title">Global Tables</li>
+                        <li class="nav-item nav-dropdown">
+                            <a class="nav-link nav-dropdown-toggle" href="#">
+                                <i class="nav-icon icon-user"></i>Accounts</a>
+                            <ul class="nav-dropdown-items">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="website.aspx?page=userList" target="_top">
+                                        <i class="nav-icon icon-star"></i>Users & Customers</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="website.aspx?page=accountsList" target="_top">
+                                        <i class="nav-icon icon-star"></i>Accounts</a>
+                                </li>
+                                
+                                <li class="nav-item">
+                                    <a class="nav-link" href="website.aspx?page=shopsList" target="_top">
+                                        <i class="nav-icon icon-star"></i>Shops</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="website.aspx?page=customersprolist">
+                                        <i class="nav-icon icon-user-following"></i>Customers
+                                        <span class="badge badge-danger">PRO</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="website.aspx?page=countriesList" target="_top">
+                                        <i class="nav-icon icon-star"></i>Countries</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="website.aspx?page=areasList" target="_top">
+                                        <i class="nav-icon icon-star"></i>Country Areas</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item nav-dropdown">
+                            <a class="nav-link nav-dropdown-toggle" href="#">
+                                <i class="nav-icon icon-basket-loaded"></i>Products</a>
+                            <ul class="nav-dropdown-items">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="website.aspx?page=productsList" target="_top">
+                                        <i class="nav-icon icon-star"></i>Products</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="website.aspx?page=productvariationList" target="_top">
+                                        <i class="nav-icon icon-star"></i>Product Variations</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="website.aspx?page=licenseList" target="_top">
+                                        <i class="nav-icon icon-star"></i>Licenses</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="website.aspx?page=categoriesList">
+                                        <i class="nav-icon icon-star"></i>Categories
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="website.aspx?page=brandsList">
+                                        <i class="nav-icon icon-star"></i>Brands
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item nav-dropdown">
+                            <a class="nav-link nav-dropdown-toggle" href="#">
+                                <i class="nav-icon icon-plane"></i>Shipment</a>
+                            <ul class="nav-dropdown-items">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="website.aspx?page=productsList" target="_top">
+                                        <i class="nav-icon icon-star"></i>Shipment</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="website.aspx?page=productvariationList" target="_top">
+                                        <i class="nav-icon icon-star"></i>Containers</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link nav-link-danger" href="#" target="_top">
+                                <i class="nav-icon icon-layers"></i>Go To
+                       
+                                <strong>PORTAL</strong>
+                            </a>
+                        </li>
+                        
+                        <li class="nav-item nav-dropdown">
+                            <a class="nav-link nav-dropdown-toggle" href="#">
+                                <i class="nav-icon icon-plane"></i>Setup</a>
+                            <ul class="nav-dropdown-items">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="website.aspx?page=emailTemplate" target="_top">
+                                        <i class="nav-icon icon-star"></i>Email Templates</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="website.aspx?page=settings" target="_top">
+                                        <i class="nav-icon icon-star"></i>Settings</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="website.aspx?page=logs" target="_top">
+                                        <i class="nav-icon icon-star"></i>Logs</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="website.aspx?page=serviceapi" target="_top">
+                                        <i class="nav-icon icon-star"></i>API Service</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+                <button class="sidebar-minimizer brand-minimizer" type="button"></button>
+            </div>
+            <main class="main">
+                <!-- Breadcrumb-->
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">Home</li>
+                    <li class="breadcrumb-item">
+                        <a href="#">Admin</a>
+                    </li>
+                    <li class="breadcrumb-item active">Dashboard</li>
+                    <!-- Breadcrumb Menu-->
+                    <li class="breadcrumb-menu d-md-down">
+                        <div class="input-group"  role="group" aria-label="Button group">
+                            <asp:TextBox ID="txtsearch" CssClass="form-control" runat="server"></asp:TextBox>
+                        <span class="input-group-prepend">
+                            <asp:LinkButton ID="LinkButton1" runat="server" CssClass="badge btn-primary" OnClick="LinkButton1_Click"><i class="fa fa-search"></i></asp:LinkButton>
+                        </span>
+                        </div>
+                    </li>
+                </ol>
+                <div class="container-fluid">
+                    <div class="animated fadeIn">
+
+                        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                        </asp:ContentPlaceHolder>
+                    </div>
+                </div>
+            </main>
+            <aside class="aside-menu">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link atsside active" data-toggle="tab" href="#timeline" role="tab">
+                            <i class="icon-list"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link atsside" data-toggle="tab" href="#messages" role="tab">
+                            <i class="icon-speech"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link atsside" data-toggle="tab" href="#settings" role="tab">
+                            <i class="icon-settings"></i>
+                        </a>
+                    </li>
+                </ul>
+                <!-- Tab panes-->
+                <div class="tab-content">
+                    <div class="tab-pane active" id="timeline" role="tabpanel">
+                        <div class="list-group list-group-accent">
+                            <asp:ContentPlaceHolder ID="ContentPlaceHolder2" runat="server">
+                            </asp:ContentPlaceHolder>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="messages" role="tabpanel">
+                        <asp:ContentPlaceHolder ID="ContentPlaceHolder3" runat="server">
+                        </asp:ContentPlaceHolder>
+                    </div>
+                    <div class="tab-pane" id="settings" role="tabpanel">
+                        <asp:ContentPlaceHolder ID="ContentPlaceHolder4" runat="server">
+                        </asp:ContentPlaceHolder>
+                    </div>
+                </div>
+            </aside>
+        </div>
+        <footer class="app-footer">
+            <div>
+                <span>&copy; 2019 Tsume-Art</span>
+            </div>
+            <div class="ml-auto">
+                <span>Powered by</span>
+                ATS
+           
+            </div>
+        </footer>
+        <!--loader-->
+        <!-- Modal -->
+        <div class="modal fade" id="loadMe" tabindex="-1" role="dialog" aria-labelledby="loadMeLabel">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-body text-center">
+                        <div class="loader"></div>
+                        <div class="loader-txt">
+                            <p>Performing an Intelligent Search.
+                                <br>
+                                <br>
+                                <small>Please be Patient... #loveTsume</small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <style>
+            /** SPINNER CREATION **/
+
+            .loader {
+                position: relative;
+                text-align: center;
+                margin: 15px auto 35px auto;
+                z-index: 9999;
+                display: block;
+                width: 80px;
+                height: 80px;
+                border: 10px solid rgba(0, 0, 0, .3);
+                border-radius: 50%;
+                border-top-color: #000;
+                animation: spin 1s ease-in-out infinite;
+                -webkit-animation: spin 1s ease-in-out infinite;
+            }
+
+            @keyframes spin {
+                to {
+                    -webkit-transform: rotate(360deg);
+                }
+            }
+
+            @-webkit-keyframes spin {
+                to {
+                    -webkit-transform: rotate(360deg);
+                }
+            }
+        </style>
+
+    </form>
+</body>
+</html>
