@@ -7,46 +7,37 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class components_accountsList : System.Web.UI.UserControl
+public partial class sidetab1_accountsList : System.Web.UI.UserControl
 {
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!this.IsPostBack)
         {
-            loadData();
             if (Request.QueryString["id"] != null)
             {
-                txtscript.Text = "<script>showright();</script>";
+                DataRow dr = adata.get_asaccount(Request.QueryString["id"].ToString());
+                Literal1.Text = dr["fullname"].ToString();
+                Literal2.Text = dr["lastname"].ToString();
+                Literal3.Text = dr["username"].ToString();
+                Literal4.Text = dr["email"].ToString();
+                Literal5.Text = dr["Company"].ToString();
+                Literal6.Text = dr["shortname"].ToString();
+                Literal7.Text = dr["branch"].ToString();
+                Literal8.Text = dr["role"].ToString();
             }
-        }
-    }
-    private void loadData()
-    {
-        SqlCommand cmd = new SqlCommand("select top 100 * from ats_users order by id desc");
-        DataSet ds = general.getSet(cmd);
-        if (general.checkEmptyDS(ds))
-        {
-            Repeater1.DataSource = ds;
-            Repeater1.DataBind();
         }
     }
 
     protected void LinkButton1_Click(object sender, EventArgs e)
     {
-        string term = txtsearch.Text.Trim().ToLower();
-        SqlCommand cmd = new SqlCommand("select top 100 * from ats_users where id like '%'+@search+'%' order by id desc");
-        cmd.Parameters.Add("@search", SqlDbType.VarChar).Value = term;
-        DataSet ds = general.getSet(cmd);
-        if (general.checkEmptyDS(ds))
-        {
-            lblerror.Text = general.myalert("Records Found for <span style=\"color:#f00\">\"" + term.ToUpper() + " \" </span>: " + ds.Tables[0].Rows.Count);
-            txtsearch.Text = "";
-            Repeater1.DataSource = ds;
-            Repeater1.DataBind();
-        }
-        else
-        {
-            lblerror.Text = general.myerror("No Data Found for: <span style=\"color:#f00\">\"" + term.ToUpper() + " \" </span> ");
-        }
+        Response.Redirect("website.aspx?page=view_account&id=" + Request.QueryString["id"].ToString());
+    }
+
+    protected void LinkButton2_Click(object sender, EventArgs e)
+    {
+        SqlCommand cmd = new SqlCommand("delete from ats_users where id=@id");
+        cmd.Parameters.Add("@id", SqlDbType.VarChar).Value = Request.QueryString["id"].ToString();
+        general.performAction(cmd);
+        Response.Redirect("website.aspx?page=accountsList");
     }
 }

@@ -1,4 +1,5 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="orderList.ascx.cs" Inherits="sidetab1_orderList" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="view_order.ascx.cs" Inherits="sidetab1_view_order" %>
+
 <div class="list-group list-group-accent"  id="myangular" ng-controller="tab1_orderList">
     <div class="list-group-item list-group-item-accent-secondary bg-light text-center font-weight-bold text-muted text-uppercase small">Customer</div>
     <div class="list-group-item list-group-item-accent-warning list-group-item-divider">
@@ -27,16 +28,6 @@
          <small class="text-muted"> Shipping Note:<br />
             <strong> {{orderlist[0].note_shipping}}</strong>
         </small>
-    </div>
-     <div class="list-group-item list-group-item-accent-secondary bg-light text-center font-weight-bold text-muted text-uppercase small">Container</div>
-    <div class="list-group-item list-group-item-accent-warning list-group-item-divider">
-        <div>
-            <strong>Container ID</strong>
-        </div>
-        <small class="text-muted"> Planned Date:<br />
-            <i class="icon-calendar"></i>&nbsp;  <span id="jtxtplanneddate">NO DATA</span></small><br />
-        <small class="text-muted"> Planned Depart Date:<br />
-            <i class="icon-calendar"></i>&nbsp; <span id="jtxtplanneddepart">NO DATA</span></small>
     </div>
     <br />
     <a href="website.aspx?page=new_order" class="btn btn-info btn-lg btn-block"> New Order </a>

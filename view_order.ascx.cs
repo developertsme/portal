@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class sidetab1_supportticketlist : System.Web.UI.UserControl
+public partial class sidetab1_view_order : System.Web.UI.UserControl
 {
     protected void Page_Load(object sender, EventArgs e)
     {

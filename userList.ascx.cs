@@ -1,53 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class components_userList : System.Web.UI.UserControl
+public partial class sidetab1_userList : System.Web.UI.UserControl
 {
+    public string flag { get; set; }
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!this.IsPostBack)
         {
-            loadData();
-
+            flag = "";
             if (Request.QueryString["id"] != null)
             {
-                txtscript.Text = "<script>showright();</script>";
+                DataRow dr = adata.get_ascustomer(Request.QueryString["id"].ToString());
+                Literal1.Text = dr["name"].ToString();
+                Literal3.Text = dr["username"].ToString();
+                Literal4.Text = dr["email"].ToString();
+                Literal2.Text = dr["surname"].ToString();
+                Literal6.Text = dr["shipping_address"].ToString();
+                Literal5.Text = dr["billing_address"].ToString();
+                flag = dr["country"] == DBNull.Value ? "" :  dr["country"].ToString();
+                txtcontact.Text = dr["tc_telephone"].ToString();
             }
         }
-    }
-    private void loadData()
-    {
-        SqlCommand cmd = new SqlCommand("select top 100 * from t_users order by id desc");
-        DataSet ds = general.getSet(cmd);
-        if (general.checkEmptyDS(ds))
+        else
         {
-            Repeater1.DataSource = ds;
-            Repeater1.DataBind();
+            flag = "";
         }
     }
 
     protected void LinkButton1_Click(object sender, EventArgs e)
     {
-        string term = txtsearch.Text.Trim().ToLower();
-        SqlCommand cmd = new SqlCommand("select top 100 * from t_users where name like '%'+@search+'%' or email like '%'+@search+'%'  order by id desc");
-        cmd.Parameters.Add("@search", SqlDbType.VarChar).Value = term;
-        DataSet ds = general.getSet(cmd);
-        if (general.checkEmptyDS(ds))
-        {
-            lblerror.Text = general.myalert("Records Found for <span style=\"color:#f00\">\"" + term.ToUpper() + " \" </span>: " + ds.Tables[0].Rows.Count);
-            txtsearch.Text = "";
-            Repeater1.DataSource = ds;
-            Repeater1.DataBind();
-        }
-        else
-        {
-            lblerror.Text = general.myerror("No Data Found for: <span style=\"color:#f00\">\"" + term.ToUpper() + " \" </span> ");
-        }
+        Response.Redirect("website.aspx?page=view_user&id=" + Request.QueryString["id"].ToString());
     }
 }
