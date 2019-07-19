@@ -1,14 +1,18 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="view_user.ascx.cs" Inherits="sidetab1_view_user" %>
-<div class="list-group list-group-accent"  id="myangular" ng-controller="tab1_viewUser">
-    <div class="list-group-item list-group-item-accent-secondary bg-light text-center font-weight-bold text-muted text-uppercase small">Order Details</div>
-    <div class="list-group-item list-group-item-accent-warning list-group-item-divider">
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="view_user.ascx.cs" Inherits="sidetab2_view_user" %>
+
+<div class="list-group list-group-accent"   id="myangular1" ng-controller="tab2_orderList">
+
+
+     <div class="list-group-item list-group-item-accent-secondary bg-light text-center font-weight-bold text-muted text-uppercase small">Order Items</div>
+
+    
+    <div class="list-group-item list-group-item-accent-warning list-group-item-divider" ng-repeat="x in datalist">
         <div>
-            <strong>{{datalist[0].uid}}</strong>
+            <strong>{{x.product_id}}</strong>
         </div>
-        <small class="text-muted"> Note:<br />
-            <i class="icon-location-pin"></i>&nbsp; {{datalist[0].note}}</small>
-        <br />
-        <small class="text-muted"> Shipping Note:<br />
-            <i class="icon-location-pin"></i>&nbsp;  {{datalist[0].note_shipping}} </small>
+        <small class="text-muted"> Price:<br />
+            <i class="icons cui-euro"></i>&nbsp;{{x.product_price}}</small><br />
+        <small class="text-muted"> Quantity:<br />
+            <i class="icons cui-pie-chart"></i>&nbsp; {{x.quantity}} pcs</small>
     </div>
 </div>

@@ -1,45 +1,48 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="userList.ascx.cs" Inherits="sidetab1_userList" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="userList.ascx.cs" Inherits="sidetab2_userList" %>
+
+<%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
 <div class="list-group list-group-accent">
-    <div class="list-group-item list-group-item-accent-secondary bg-light text-center font-weight-bold text-muted text-uppercase small">Customer</div>
+    <div class="list-group-item list-group-item-accent-secondary bg-light text-center font-weight-bold text-muted text-uppercase small">Customer Update</div>
     <div class="list-group-item list-group-item-accent-warning list-group-item-divider">
         <div>
-            <strong>
-            <asp:Literal ID="Literal1" runat="server"></asp:Literal></strong>
+            Name:<br />
+            <asp:TextBox ID="txtname" runat="server" CssClass="form-control"></asp:TextBox>
         </div>
         <div>
-            <strong>
-            <asp:Literal ID="Literal2" runat="server"></asp:Literal></strong>
+            Surname:<br />
+            <asp:TextBox ID="txtsurname" runat="server" CssClass="form-control"></asp:TextBox>
         </div>
-        <hr />
-        <small class="text-muted"><i class="icon-user"></i>&nbsp;  Username:<br />
-            
-            <asp:Literal ID="Literal3" runat="server"></asp:Literal></small>
-        <br />
+        <small class="text-muted"><i class="icon-user"></i>&nbsp; Username:<br />
+            <asp:TextBox ID="txtusername" runat="server" CssClass="form-control"></asp:TextBox></small>
          <small class="text-muted"> Email:<br />
-            <strong>
-            <asp:Literal ID="Literal4" runat="server"></asp:Literal></strong>
+            <strong><asp:TextBox ID="txtemail" runat="server" CssClass="form-control"></asp:TextBox></strong>
         </small>
-        <br />
-         <small class="text-muted"> Contact Number:<br />
-            <strong>
-            <asp:Literal ID="txtcontact" runat="server"></asp:Literal></strong>
+        <small class="text-muted"> Contact No.:<br />
+            <strong><asp:TextBox ID="txtcontact" runat="server" CssClass="form-control"></asp:TextBox></strong>
         </small>
-        <br />
-        <small class="text-muted"> <i class="icon-location-pin"></i>&nbsp;  Billing Address:<br />
-           
-            <asp:Literal ID="Literal5" runat="server"></asp:Literal></small>
-        <br />
-        <small class="text-muted"> <i class="icon-location-pin"></i>&nbsp;  Shipping Address:<br />
-            <asp:Literal ID="Literal6" runat="server"></asp:Literal> </small>
-        <br />
+        <small class="text-muted"> <i class="icon-location-pin"></i>&nbsp;Billing Address:<br />
+             <asp:TextBox ID="TextBox5" runat="server" CssClass="form-control"></asp:TextBox></small>
+        <small class="text-muted"><i class="icon-location-pin"></i>&nbsp; Shipping Address:<br />
+            <asp:TextBox ID="TextBox6" runat="server" CssClass="form-control"></asp:TextBox> </small>
         
-        <small class="text-muted"><i class="icon-flag"></i>&nbsp;  Country:<br />
-            <i class="flag-icon flag-icon-<%=flag.ToLower() %> h1 mb-0" id="<%=flag %>" title="<%=flag %>"></i> </small>
-        <br />
+        <small class="text-muted">  <i class="icon-flag"></i>&nbsp;Country:<br />
+           <telerik:RadComboBox AllowCustomText="true" ShowMoreResultsBox="true" MarkFirstMatch="true" ID="txtcountry" Skin="MetroTouch" Width="100%" runat="server"></telerik:RadComboBox>
+                    </small>
+        <small class="text-muted">  <i class="icon-flag"></i>&nbsp;Customer Type:<br />
+           <telerik:RadComboBox AllowCustomText="True" ShowMoreResultsBox="True" MarkFirstMatch="True" ID="txttype" Skin="MetroTouch" Width="100%" runat="server">
+               <Items>
+                   <telerik:RadComboBoxItem runat="server" Text="Guest" Value="Guest" />
+                   <telerik:RadComboBoxItem runat="server" Text="Customer" Value="Customer" />
+                   <telerik:RadComboBoxItem runat="server" Text="PRO" Value="PRO" />
+                   <telerik:RadComboBoxItem runat="server" Text="Supplier" Value="Supplier" />
+                   <telerik:RadComboBoxItem runat="server" Text="User" Value="User" />
+                   <telerik:RadComboBoxItem runat="server" Text="Manager" Value="Manager" />
+                   <telerik:RadComboBoxItem runat="server" Text="Admin" Value="Admin" />
+               </Items>
+        </telerik:RadComboBox>
+                    </small>
     </div>
 
     <br />
-    <a href="website.aspx?page=new_user" class="btn btn-info btn-lg btn-block"> New Account </a>
-    <br />
-    <asp:LinkButton ID="LinkButton1" CssClass="btn btn-outline-success btn-lg btn-block" OnClientClick="loader();" runat="server" OnClick="LinkButton1_Click">View Details </asp:LinkButton>
+    <asp:LinkButton ID="LinkButton1" CssClass="btn btn-info btn-lg btn-block" runat="server"  OnClientClick="loader();" OnClick="LinkButton1_Click">Submit</asp:LinkButton>
 </div>

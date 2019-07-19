@@ -7,37 +7,51 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class sidetab1_accountsList : System.Web.UI.UserControl
+public partial class sidetab2_accountsList : System.Web.UI.UserControl
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!this.IsPostBack)
-        {
-            if (Request.QueryString["id"] != null)
-            {
-                DataRow dr = adata.get_asaccount(Request.QueryString["id"].ToString());
-                Literal1.Text = dr["fullname"].ToString();
-                Literal2.Text = dr["lastname"].ToString();
-                Literal3.Text = dr["username"].ToString();
-                Literal4.Text = dr["email"].ToString();
-                Literal5.Text = dr["Company"].ToString();
-                Literal6.Text = dr["shortname"].ToString();
-                Literal7.Text = dr["branch"].ToString();
-                Literal8.Text = dr["role"].ToString();
-            }
-        }
+
     }
 
     protected void LinkButton1_Click(object sender, EventArgs e)
     {
-        Response.Redirect("website.aspx?page=view_account&id=" + Request.QueryString["id"].ToString());
+        if (txtpassword.Text != txtnewpassword.Text)
+        {
+            txtalert.Text = general.myerror("Password do not match");
+            return;
+        }
+        SqlCommand cmd = new SqlCommand("Update ats_users set password=@password where id=@id");
+        cmd.Parameters.Add("@id", SqlDbType.VarChar).Value = Request.QueryString["id"].ToString();
+        cmd.Parameters.Add("@password", SqlDbType.VarChar).Value = general.getMd5Hash(txtpassword.Text);
+        general.performAction(cmd);
+        txtalert.Text = general.myalert("Password Change Successful");
+        txtscript.Text = "<script>jQuery(\"a[href = '#messages']\").click()</script>";
     }
 
     protected void LinkButton2_Click(object sender, EventArgs e)
     {
-        SqlCommand cmd = new SqlCommand("delete from ats_users where id=@id");
+        SqlCommand cmd = new SqlCommand("select * from ats_users where id=@id");
         cmd.Parameters.Add("@id", SqlDbType.VarChar).Value = Request.QueryString["id"].ToString();
-        general.performAction(cmd);
-        Response.Redirect("website.aspx?page=accountsList");
+        DataSet ds = general.getSet(cmd);
+        if (general.checkEmptyDS(ds))
+        {
+            string newpass = general.GetRandomPasswordUsingGUID(6);
+            DataRow dr = ds.Tables[0].Rows[0];
+            string to = dr["email"].ToString();
+            string body = adata.get_email_template("account_password_reset");
+            SqlCommand cm = new SqlCommand("Update ats_users set password=@password where id=@id");
+            cm.Parameters.Add("@id", SqlDbType.VarChar).Value = Request.QueryString["id"].ToString();
+            cm.Parameters.Add("@password", SqlDbType.VarChar).Value = general.getMd5Hash(newpass);
+            general.performAction(cm);
+
+
+            body = body.Replace("{{name}}", dr["fullname"].ToString());
+            body = body.Replace("{{password}}",newpass);
+            general.sendMail("saharkiz@yahoo.com", "Tsume-Art Portal: Password Reset", body, "");
+
+            txtalert.Text = general.myalert("Password Reset Email Sent Successful");
+            txtscript.Text = "<script>jQuery(\"a[href = '#messages']\").click()</script>";
+        }
     }
 }
